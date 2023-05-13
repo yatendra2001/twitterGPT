@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1057730238062",
+    "project_id": "twittergpt-7d0dc",
+    "storage_bucket": "twittergpt-7d0dc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1057730238062:android:05d0bb81d7861c13f2f87f",
+        "android_client_info": {
+          "package_name": "com.superawesomeapps.twitter_gpt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1057730238062-cr9u39k2kg85rkn0tu9ek6tvclkcbrk9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDYYUdredgQV4qeabDLpEDZAbTr0dsVGs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1057730238062-cr9u39k2kg85rkn0tu9ek6tvclkcbrk9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

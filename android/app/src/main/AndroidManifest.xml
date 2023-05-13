@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.twitter_gpt">
+    package="com.superawesomeapps.twitter_gpt">
    <application
         android:label="twitter_gpt"
         android:name="${applicationName}"
