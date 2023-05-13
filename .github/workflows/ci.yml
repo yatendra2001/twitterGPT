@@ -1,0 +1,56 @@
+name: twitterGPT
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: "3.7.3"
+
+      - name: Get Dependencies
+        run: flutter pub get
+
+      - name: Run Analyzer
+        run: flutter analyze
+
+      - name: Run Tests
+        run: flutter test
+
+      - name: Build APK
+        run: flutter build apk
+
+      - name: Build iOS
+        run: flutter build ios --release --no-codesign
+
+      - name: Archive APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-release.apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Archive iOS build
+        uses: actions/upload-artifact@v2
+        with:
+          name: Runner.app
+          path: build/ios/iphoneos/Runner.app
+
+    # - name: Deploy to Server
+    #   run: |
+    #     Your deployment commands here
+    #   env:
+    #     DEPLOYMENT_SERVER: ${{ secrets.DEPLOYMENT_SERVER }}
+    #     DEPLOYMENT_USER: ${{ secrets.DEPLOYMENT_USER }}
+    #     DEPLOYMENT_PASSWORD: ${{ secrets.DEPLOYMENT_PASSWORD }}
