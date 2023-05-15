@@ -41,6 +41,13 @@ dependencies:
   lottie: ^2.3.2
   google_fonts: ^4.0.4
   font_awesome_flutter: ^10.4.0
+  twitter_oauth2_pkce: ^1.0.2
+  firebase_auth: ^4.6.0
+  cloud_firestore: ^4.7.0
+  flutter_dotenv: ^5.0.2
+  twitter_login: ^4.3.2
+  supabase_flutter: ^1.9.1
+  supabase_auth_ui: ^0.1.0+2
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +76,7 @@ flutter:
     - assets/images/
     - assets/animations/
     - assets/
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

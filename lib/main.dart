@@ -1,7 +1,11 @@
 // 📦 Package imports:
+import 'dart:developer';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:sizer/sizer.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:twitter_gpt/config/route_generator.dart';
 import 'package:twitter_gpt/utils/theme_constants.dart';
 
@@ -11,6 +15,11 @@ import 'screens/onboarding/screens/pageview.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
+  await Supabase.initialize(
+    url: dotenv.get('SUPABASE_PROJECT_URL'),
+    anonKey: dotenv.get('PUBLIC_ANON_KEY'),
+  );
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

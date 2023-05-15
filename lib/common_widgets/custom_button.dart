@@ -33,7 +33,8 @@ class _CustomButtonState extends State<CustomButton> {
           onclicked == false
               ? BoxShadow(
                   color: AppColor.kDarkBlueColor.withOpacity(0.75),
-                  blurRadius: 40)
+                  blurRadius: 40,
+                  spreadRadius: 10)
               : BoxShadow(color: Colors.white30),
         ],
       ),

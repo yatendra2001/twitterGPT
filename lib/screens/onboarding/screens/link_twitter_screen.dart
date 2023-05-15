@@ -1,10 +1,19 @@
 // 🐦 Flutter imports:
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
+import 'package:supabase_auth_ui/supabase_auth_ui.dart';
+import 'package:twitter_gpt/repositories/authentication/auth_repo.dart';
 import 'package:twitter_gpt/utils/theme_constants.dart';
+import 'package:twitter_oauth2_pkce/twitter_oauth2_pkce.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 // 🌎 Project imports:
 import '../../../common_widgets/custom_button.dart';
@@ -73,10 +82,10 @@ class _LinkTwitterScreenState extends State<LinkTwitterScreen> {
                 height: 1.h,
               ),
               Text(
-                "Conect with twitter",
+                "Connect with twitter",
                 style: GoogleFonts.lexend(
                   fontWeight: FontWeight.w600,
-                  fontSize: 20.sp,
+                  fontSize: 19.87.sp,
                 ),
               ),
               SizedBox(
@@ -105,7 +114,11 @@ class _LinkTwitterScreenState extends State<LinkTwitterScreen> {
                     ),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  log("Signing in");
+                  await AuthRepository().loginUsingTwitter();
+                  log("SignedIn Successfully");
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
