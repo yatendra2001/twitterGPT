@@ -22,7 +22,12 @@ jobs:
 
       - name: Get Dependencies
         run: flutter pub get
-
+        
+      - name: Create .env and firebase_options.dart files
+        run: |
+          echo '${{ secrets.ENV_FILE_CONTENT }}' > .env
+          echo '${{ secrets.FIREBASE_OPTIONS_CONTENT }}' > lib/firebase_options.dart
+          
       - name: Run Analyzer
         run: flutter analyze
 
