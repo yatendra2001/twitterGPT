@@ -4,13 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:twitter_gpt/config/paths.dart';
 import 'package:twitter_gpt/repositories/authentication/base_auth_repo.dart';
-import 'package:twitter_oauth2_pkce/src/twitter_oauth2_client.dart';
-import 'package:twitter_oauth2_pkce/twitter_oauth2_pkce.dart';
 
 import 'package:twitter_login/twitter_login.dart';
 
@@ -30,15 +26,15 @@ class AuthRepository extends BaseAuthRepository {
 
   @override
   Future<bool> checkUserDataExists({required String userId}) async {
-    String _errorMessage = 'Something went wrong';
+    String errorMessage = 'Something went wrong';
     try {
       final user = await usersRef.doc(userId).get();
       return user.exists;
     } catch (e) {
-      _errorMessage = e.toString();
+      errorMessage = e.toString();
       debugPrint(e.toString());
     }
-    throw Exception(_errorMessage);
+    throw Exception(errorMessage);
   }
 
   @override

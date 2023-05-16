@@ -1,19 +1,14 @@
-// 🐦 Flutter imports:
+// 🎯 Dart imports:
 import 'dart:developer';
 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
-import 'package:supabase_auth_ui/supabase_auth_ui.dart';
 import 'package:twitter_gpt/repositories/authentication/auth_repo.dart';
 import 'package:twitter_gpt/utils/theme_constants.dart';
-import 'package:twitter_oauth2_pkce/twitter_oauth2_pkce.dart';
-import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 // 🌎 Project imports:
 import '../../../common_widgets/custom_button.dart';
@@ -33,7 +28,7 @@ class LinkTwitterScreen extends StatefulWidget {
 }
 
 class _LinkTwitterScreenState extends State<LinkTwitterScreen> {
-  String _result = '';
+  final String _result = '';
   bool logoutVisible = false;
   bool _showSecond = false;
 
@@ -43,7 +38,7 @@ class _LinkTwitterScreenState extends State<LinkTwitterScreen> {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       padding: EdgeInsets.symmetric(horizontal: 8.w),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(40),
           topRight: Radius.circular(40),
@@ -65,7 +60,7 @@ class _LinkTwitterScreenState extends State<LinkTwitterScreen> {
                   alignment: Alignment.center,
                   height: 1.h,
                   decoration: BoxDecoration(
-                      color: Color(0XFFE0E5F2),
+                      color: AppColor.kColorOffWhite,
                       borderRadius: BorderRadius.circular(40)),
                   width: 30.w,
                 ),
@@ -75,7 +70,7 @@ class _LinkTwitterScreenState extends State<LinkTwitterScreen> {
               ),
               Icon(
                 Icons.login,
-                color: Color(0XFF707EAE),
+                color: const Color(0XFF707EAE),
                 size: 6.h,
               ),
               SizedBox(
@@ -96,7 +91,7 @@ class _LinkTwitterScreenState extends State<LinkTwitterScreen> {
                 style: GoogleFonts.lexend(
                   fontWeight: FontWeight.w500,
                   fontSize: 10.sp,
-                  color: Color(0XFF8F9BBA),
+                  color: const Color(0XFF8F9BBA),
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -118,6 +113,9 @@ class _LinkTwitterScreenState extends State<LinkTwitterScreen> {
                   log("Signing in");
                   await AuthRepository().loginUsingTwitter();
                   log("SignedIn Successfully");
+                  setState(() {
+                    _showSecond = true;
+                  });
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

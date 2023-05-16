@@ -12,7 +12,7 @@ class OnboardingPageview extends StatefulWidget {
     return PageRouteBuilder(
       settings: const RouteSettings(name: routeName),
       transitionDuration: const Duration(seconds: 0),
-      pageBuilder: (context, _, __) => OnboardingPageview(),
+      pageBuilder: (context, _, __) => const OnboardingPageview(),
     );
   }
 
@@ -57,7 +57,7 @@ class _OnboardingPageviewState extends State<OnboardingPageview> {
       body: GestureDetector(
         onTap: () {
           _pageController.nextPage(
-            duration: Duration(milliseconds: 450),
+            duration: const Duration(milliseconds: 450),
             curve: Curves.linear,
           );
         },

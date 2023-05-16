@@ -3,7 +3,7 @@ import 'package:twitter_gpt/screens/onboarding/screens/pageview.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    final args = settings.arguments;
+    // final args = settings.arguments;
 
     switch (settings.name) {
       case '/':
@@ -23,7 +23,7 @@ class RouteGenerator {
     return MaterialPageRoute(
         builder: (_) => Scaffold(
               appBar: AppBar(
-                title: Text('Error'),
+                title: const Text('Error'),
               ),
               body: Center(
                 child: Text(
