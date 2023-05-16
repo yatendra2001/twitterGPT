@@ -1,4 +1,4 @@
-package com.example.twitter_gpt
+package com.superawesomeapps.twitter_gpt
 
 import io.flutter.embedding.android.FlutterActivity
 
