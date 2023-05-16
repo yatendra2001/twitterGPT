@@ -12,7 +12,6 @@
 .env
 
 # Remove firebase files
-/lib/firebase_options.dart
 /macos/Runner/GoogleService-Info.plist
 /ios/Runner/GoogleService-Info.plist
 
