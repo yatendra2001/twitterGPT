@@ -5,11 +5,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:twitter_gpt/repositories/tweets/base_tweet_repo.dart';
 import 'package:twitter_api_v2/twitter_api_v2.dart' as v2;
 import 'package:twitter_gpt/repositories/user/user_repo.dart';
-import 'package:twitter_gpt/utils/session_helper.dart';
 
 class TweetRepo extends BaseTweetRepo {
   final v2.TwitterApi _twitter;
-  final UserRepo _userRepo = UserRepo();
   TweetRepo({v2.TwitterApi? twitter, UserRepo? userRepo})
       : _twitter = twitter ??
             v2.TwitterApi(
@@ -68,44 +66,6 @@ class TweetRepo extends BaseTweetRepo {
         ],
       );
       log(me.data.toJson().toString());
-
-      // final tweets = await _twitter.tweets.searchRecent(
-      //   query: "#AppwriteCloud",
-      //   maxResults: 20,
-      //   // You can expand the search result.
-      //   expansions: [
-      //     v2.TweetExpansion.authorId,
-      //     v2.TweetExpansion.inReplyToUserId,
-      //   ],
-      //   tweetFields: [
-      //     v2.TweetField.conversationId,
-      //     v2.TweetField.publicMetrics,
-      //     v2.TweetField.editControls,
-      //   ],
-      //   userFields: [
-      //     v2.UserField.location,
-      //     v2.UserField.verified,
-      //     v2.UserField.entities,
-      //     v2.UserField.publicMetrics,
-      //   ],
-
-      //   //! Safe paging is easy to implement.
-      //   paging: (event) {
-      //     print(event.response);
-
-      //     if (event.count == 3) {
-      //       return v2.ForwardPaginationControl.stop();
-      //     }
-
-      //     return v2.ForwardPaginationControl.next();
-      //   },
-      // );
-
-      // // ! You can serialize & deserialize JSON from response object
-      // // ! and modsel object.
-      // final tweetJson = tweets.data.first.toJson();
-      // final tweet = v2.TweetData.fromJson(tweetJson);
-      // log(tweet.text);
     } on TimeoutException catch (e) {
       log(e.toString());
     } on v2.UnauthorizedException catch (e) {

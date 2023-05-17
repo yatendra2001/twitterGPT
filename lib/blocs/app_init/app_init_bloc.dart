@@ -1,10 +1,8 @@
 import 'dart:async';
-import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
-import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:twitter_gpt/repositories/tweets/tweet_repo.dart';
 import 'package:twitter_gpt/utils/session_helper.dart';
 

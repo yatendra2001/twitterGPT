@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
   }
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -26,7 +26,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('TwitterGPT', style: Theme.of(context).textTheme.headline1),
+        title: Text('TwitterGPT',
+            style: Theme.of(context).textTheme.headlineLarge),
       ),
       body: _currentIndex == 0 ? const TweetsPage() : const PerformancePage(),
       bottomNavigationBar: BottomNavigationBar(
@@ -63,7 +64,7 @@ class TweetsPage extends StatelessWidget {
         return Card(
           child: ListTile(
             title: Text('Generated Tweet #${index + 1}'),
-            subtitle: Text('This is a dummy generated tweet.'),
+            subtitle: const Text('This is a dummy generated tweet.'),
           ),
         );
       },

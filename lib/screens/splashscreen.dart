@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:twitter_gpt/repositories/authentication/auth_repo.dart';
 import 'package:twitter_gpt/screens/homepage/homepage.dart';
 import 'package:twitter_gpt/screens/onboarding/screens/onboarding_pageview.dart';
 import 'package:twitter_gpt/utils/asset_constants.dart';
@@ -13,7 +12,7 @@ class SplashScreen extends StatefulWidget {
   static Route route() {
     return MaterialPageRoute(
       settings: const RouteSettings(name: routeName),
-      builder: (context) => SplashScreen(),
+      builder: (context) => const SplashScreen(),
     );
   }
 

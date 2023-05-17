@@ -8,9 +8,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:twitter_gpt/config/paths.dart';
 import 'package:twitter_gpt/repositories/authentication/base_auth_repo.dart';
 import 'package:twitter_gpt/models/user_model.dart' as user_model;
-import 'package:twitter_gpt/utils/session_helper.dart';
-import 'package:twitter_gpt/repositories/tweets/tweet_repo.dart';
-import 'package:twitter_api_v2/twitter_api_v2.dart' as v2;
 
 import 'package:twitter_login/twitter_login.dart';
 
@@ -80,8 +77,7 @@ class AuthRepository extends BaseAuthRepository {
         secret: authResult.authTokenSecret!,
       );
 
-      final userCredentials =
-          _firebaseAuth.signInWithCredential(twitterAuthCredential);
+      _firebaseAuth.signInWithCredential(twitterAuthCredential);
       final userDetails = authResult.user;
       final user = user_model.User(
         twitterId: userDetails!.id,
@@ -90,7 +86,7 @@ class AuthRepository extends BaseAuthRepository {
         thumbnailImage: userDetails.thumbnailImage,
       );
 
-      return null;
+      return user;
     } catch (error) {
       log("twitter auth error: $error");
     }
