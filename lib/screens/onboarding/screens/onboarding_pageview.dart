@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:twitter_gpt/utils/theme_constants.dart';
 
 class OnboardingPageview extends StatefulWidget {
-  static const routeName = '/OnboardingPageview';
+  static const routeName = '/onboarding-pageview';
   const OnboardingPageview({Key? key}) : super(key: key);
 
   static Route route() {

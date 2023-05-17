@@ -13,6 +13,7 @@ import 'package:twitter_gpt/utils/theme_constants.dart';
 // 🌎 Project imports:
 import '../../../common_widgets/custom_button.dart';
 import '../../../common_widgets/custom_outlined_button.dart';
+import '../../../utils/asset_constants.dart';
 
 class LinkTwitterScreen extends StatefulWidget {
   final Function() afterConnect;
@@ -165,7 +166,7 @@ class _LinkTwitterScreenState extends State<LinkTwitterScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Lottie.asset("assets/animations/confetti.json", height: 25.h),
+              Lottie.asset(kConfettiJson, height: 25.h),
               CustomButton(onPressed: widget.afterConnect, text: "Okay"),
               SizedBox(
                 height: 3.h,

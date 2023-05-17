@@ -7,6 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:twitter_gpt/config/paths.dart';
 import 'package:twitter_gpt/repositories/authentication/base_auth_repo.dart';
+import 'package:twitter_gpt/models/user_model.dart' as user_model;
+import 'package:twitter_gpt/utils/session_helper.dart';
+import 'package:twitter_gpt/repositories/tweets/tweet_repo.dart';
+import 'package:twitter_api_v2/twitter_api_v2.dart' as v2;
 
 import 'package:twitter_login/twitter_login.dart';
 
@@ -53,10 +57,9 @@ class AuthRepository extends BaseAuthRepository {
   }
 
   @override
-  Future<void> loginUsingTwitter() async {
+  Future<user_model.User?> loginUsingTwitter() async {
     try {
       // TWITTER Login
-
       final twitterLogin = TwitterLogin(
           apiKey: dotenv.get('API_KEY'),
           apiSecretKey: dotenv.get('API_SECRET_KEY'),
@@ -64,6 +67,12 @@ class AuthRepository extends BaseAuthRepository {
 
       // Trigger the sign-in flow
       final authResult = await twitterLogin.login();
+      authResult.status == TwitterLoginStatus.loggedIn
+          ? log("twitter login success")
+          : log("twitter login failed");
+
+      log("accessToken: ${authResult.authToken}");
+      log("authTokenSecret: ${authResult.authTokenSecret}");
 
       // Create a credential from the access token
       final twitterAuthCredential = TwitterAuthProvider.credential(
@@ -71,44 +80,20 @@ class AuthRepository extends BaseAuthRepository {
         secret: authResult.authTokenSecret!,
       );
 
-      _firebaseAuth.signInWithCredential(twitterAuthCredential);
+      final userCredentials =
+          _firebaseAuth.signInWithCredential(twitterAuthCredential);
       final userDetails = authResult.user;
-      log(userDetails?.name.toString() ?? '');
+      final user = user_model.User(
+        twitterId: userDetails!.id,
+        name: userDetails.name,
+        screenName: userDetails.screenName,
+        thumbnailImage: userDetails.thumbnailImage,
+      );
 
-      log(userDetails?.screenName.toString() ?? '');
-
-      // // TWITTER OAuth2 PKCE
-
-      // final oauth2 = TwitterOAuth2Client(
-      //   clientId: dotenv.get('API_KEY'),
-      //   clientSecret: dotenv.get('API_SECRET_KEY'),
-      //   redirectUri: 'org.example.android.oauth://callback/',
-      //   customUriScheme: 'org.example.android.oauth',
-      // );
-
-      // final response = await oauth2.executeAuthCodeFlowWithPKCE(
-      //   scopes: Scope.values,
-      // );
-
-      // // Create a credential from the access token
-      // final twitterAuthCredential = TwitterAuthProvider.credential(
-      //   accessToken: response.accessToken,
-      //   secret: response.refreshToken!,
-      // );
-
-      // final authResult =
-      //     await _firebaseAuth.signInWithCredential(twitterAuthCredential);
-      // final userDetails = authResult.user;
-      // log(userDetails.toString());
-
-      // SUPABASE LOGIN
-
-      // await Supabase.instance.client.auth.signInWithOAuth(Provider.twitter,
-      //     redirectTo: dotenv.get('SUPABASE_CALLBACK_URL'),
-      //     authScreenLaunchMode: LaunchMode.platformDefault,
-      //     queryParams: {'apikey': dotenv.get('API_KEY')});
+      return null;
     } catch (error) {
       log("twitter auth error: $error");
     }
+    return null;
   }
 }

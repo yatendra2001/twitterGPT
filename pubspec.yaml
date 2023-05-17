@@ -48,6 +48,9 @@ dependencies:
   twitter_login: ^4.3.2
   supabase_flutter: ^1.9.1
   supabase_auth_ui: ^0.1.0+2
+  fl_chart: ^0.62.0
+  equatable: ^2.0.5
+  flutter_bloc: ^7.0.0
 
 dev_dependencies:
   flutter_test:
