@@ -1,5 +1,4 @@
 // 🎯 Dart imports:
-import 'dart:developer';
 
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
@@ -70,7 +69,7 @@ class _CustomScreenState extends State<CustomScreen> {
                               style: GoogleFonts.lexend().copyWith(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 11.sp,
-                                color: Color(0XFF8F9BBA),
+                                color: const Color(0XFF8F9BBA),
                                 height: 1.5,
                                 letterSpacing: 1,
                               ),
@@ -96,7 +95,7 @@ class _CustomScreenState extends State<CustomScreen> {
                               text: "Continue",
                               onPressed: () {
                                 widget.pageController.nextPage(
-                                  duration: Duration(milliseconds: 400),
+                                  duration: const Duration(milliseconds: 400),
                                   curve: Curves.linear,
                                 );
                               },

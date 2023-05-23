@@ -35,37 +35,35 @@ class _CustomButtonState extends State<CustomButton> {
                   color: AppColor.kDarkBlueColor.withOpacity(0.75),
                   blurRadius: 40,
                   spreadRadius: 10)
-              : BoxShadow(color: Colors.white30),
+              : const BoxShadow(color: Colors.white30),
         ],
       ),
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: InkWell(
         onTap: () {
           widget.onPressed();
           onclicked = !onclicked;
           setState(() {});
         },
-        child: Container(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox.shrink(),
-              Text(
-                widget.text,
-                style: GoogleFonts.dmSans().copyWith(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 13.sp,
-                    color: AppColor.kColorWhite),
-              ),
-              widget.showIcon
-                  ? Icon(
-                      Icons.arrow_forward_ios,
-                      size: 18,
-                      color: AppColor.kColorWhite,
-                    )
-                  : SizedBox.shrink(),
-            ],
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const SizedBox.shrink(),
+            Text(
+              widget.text,
+              style: GoogleFonts.dmSans().copyWith(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13.sp,
+                  color: AppColor.kColorWhite),
+            ),
+            widget.showIcon
+                ? const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 18,
+                    color: AppColor.kColorWhite,
+                  )
+                : const SizedBox.shrink(),
+          ],
         ),
       ),
     );

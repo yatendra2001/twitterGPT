@@ -19,7 +19,7 @@ class CustomOutlineButton extends StatelessWidget {
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
         fixedSize: Size(46.w, 6.5.h),
-        side: const BorderSide(color: AppColor.kDarkBlueColor, width: 1),
+        side: const BorderSide(color: AppColor.kColorWhite, width: 1),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(30),
@@ -40,8 +40,8 @@ class CustomOutlineButton extends StatelessWidget {
                   text,
                   style: GoogleFonts.dmSans().copyWith(
                     fontWeight: FontWeight.w700,
-                    fontSize: 14.sp,
-                    color: AppColor.kDarkBlueColor,
+                    fontSize: 13.sp,
+                    color: AppColor.kColorWhite,
                   ),
                 ),
                 SizedBox(width: 3.w),
@@ -51,8 +51,8 @@ class CustomOutlineButton extends StatelessWidget {
               text,
               style: GoogleFonts.dmSans().copyWith(
                 fontWeight: FontWeight.w500,
-                fontSize: 11.sp,
-                color: AppColor.kDarkBlueColor,
+                fontSize: 14.sp,
+                color: AppColor.kColorWhite,
               ),
             ),
     );

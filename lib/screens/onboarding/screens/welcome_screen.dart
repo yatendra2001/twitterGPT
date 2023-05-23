@@ -58,7 +58,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             style: GoogleFonts.lexend().copyWith(
                               fontWeight: FontWeight.w600,
                               fontSize: 12.sp,
-                              color: Color(0XFF8F9BBA),
+                              color: const Color(0XFF8F9BBA),
                               height: 1.5,
                               letterSpacing: 1,
                             ),
@@ -84,7 +84,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             text: "Continue",
                             onPressed: () {
                               widget.pageController.nextPage(
-                                duration: Duration(milliseconds: 300),
+                                duration: const Duration(milliseconds: 300),
                                 curve: Curves.linear,
                               );
                             },

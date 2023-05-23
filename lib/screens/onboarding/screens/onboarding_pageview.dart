@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:twitter_gpt/utils/theme_constants.dart';
 
 class OnboardingPageview extends StatefulWidget {
-  static const routeName = '/OnboardingPageview';
+  static const routeName = '/onboarding-pageview';
   const OnboardingPageview({Key? key}) : super(key: key);
 
   static Route route() {
     return PageRouteBuilder(
       settings: const RouteSettings(name: routeName),
       transitionDuration: const Duration(seconds: 0),
-      pageBuilder: (context, _, __) => OnboardingPageview(),
+      pageBuilder: (context, _, __) => const OnboardingPageview(),
     );
   }
 
@@ -57,7 +57,7 @@ class _OnboardingPageviewState extends State<OnboardingPageview> {
       body: GestureDetector(
         onTap: () {
           _pageController.nextPage(
-            duration: Duration(milliseconds: 450),
+            duration: const Duration(milliseconds: 450),
             curve: Curves.linear,
           );
         },

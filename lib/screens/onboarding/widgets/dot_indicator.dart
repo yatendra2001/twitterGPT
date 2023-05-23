@@ -18,7 +18,7 @@ class CustomDotIndicator extends StatelessWidget {
       position: curPageIndex.toInt(),
       onTap: onTap,
       decorator: DotsDecorator(
-        spacing: EdgeInsets.all(8),
+        spacing: const EdgeInsets.all(8),
         size: const Size.fromRadius(6),
         activeSize: const Size(25.0, 9.0),
         activeShape:

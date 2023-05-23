@@ -81,7 +81,7 @@ class _StayInformedScreenState extends State<StayInformedScreen> {
                           style: GoogleFonts.lexend().copyWith(
                             fontWeight: FontWeight.w600,
                             fontSize: 11.sp,
-                            color: Color(0XFF8F9BBA),
+                            color: const Color(0XFF8F9BBA),
                             height: 1.5,
                             letterSpacing: 1,
                           ),

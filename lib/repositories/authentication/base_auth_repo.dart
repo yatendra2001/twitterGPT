@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
-import 'package:twitter_oauth2_pkce/twitter_oauth2_pkce.dart';
+import 'package:twitter_gpt/models/user_model.dart' as user_model;
 
 abstract class BaseAuthRepository {
   Stream<auth.User?> get user;
-  Future<void> loginUsingTwitter();
+  Future<user_model.User?> loginUsingTwitter();
 
   Future<bool> checkUserDataExists({required String userId});
 

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:twitter_gpt/screens/onboarding/screens/pageview.dart';
+import 'package:twitter_gpt/screens/homepage/homepage.dart';
+import 'package:twitter_gpt/screens/onboarding/screens/onboarding_pageview.dart';
+
+import '../screens/splashscreen.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    final args = settings.arguments;
+    // final args = settings.arguments;
 
     switch (settings.name) {
       case '/':
@@ -14,6 +17,11 @@ class RouteGenerator {
 
       case OnboardingPageview.routeName:
         return OnboardingPageview.route();
+      case SplashScreen.routeName:
+        return SplashScreen.route();
+      case HomePage.routeName:
+        return HomePage.route();
+
       default:
         return _errorRoute();
     }
@@ -23,7 +31,7 @@ class RouteGenerator {
     return MaterialPageRoute(
         builder: (_) => Scaffold(
               appBar: AppBar(
-                title: Text('Error'),
+                title: const Text('Error'),
               ),
               body: Center(
                 child: Text(

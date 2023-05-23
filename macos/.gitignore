@@ -1,7 +1,6 @@
 # Flutter-related
 **/Flutter/ephemeral/
 **/Pods/
-**/Runner/GoogleService-Info.plist
 
 # Xcode-related
 **/dgph
