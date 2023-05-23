@@ -137,4 +137,4 @@ samples, guidance on mobile development, and a full API reference.
 [issues-shield]: https://img.shields.io/github/issues/yatendra2001/twitter_gpt.svg?style=for-the-badge
 [issues-url]: https://github.com/yatendra2001/twitter_gpt/issues
 [license-shield]: https://img.shields.io/github/license/yatendra2001/twitter_gpt.svg?style=for-the-badge
-[license-url]: https://github.com/yatendra2001/twitter_gpt/blob/master/LICENSE.txt
+[license-url]: https://github.com/yatendra2001/twitter_gpt/blob/master/LICENSE
