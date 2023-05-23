@@ -33,8 +33,8 @@ jobs:
       - name: Build APK
         run: flutter build apk
 
-      - name: Build iOS
-        run: flutter build ios --no-codesign
+      # - name: Build iOS
+      #   run: flutter build ios --no-codesign
 
       - name: Archive APK
         uses: actions/upload-artifact@v2
@@ -42,11 +42,11 @@ jobs:
           name: app-release.apk
           path: build/app/outputs/flutter-apk/app-release.apk
 
-      - name: Archive iOS build
-        uses: actions/upload-artifact@v2
-        with:
-          name: Runner.app
-          path: build/ios/iphoneos/Runner.app
+      # - name: Archive iOS build
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: Runner.app
+      #     path: build/ios/iphoneos/Runner.app
 
     # - name: Deploy to Server
     #   run: |
