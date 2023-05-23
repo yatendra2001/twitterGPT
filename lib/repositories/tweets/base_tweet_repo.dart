@@ -1,3 +1,3 @@
 abstract class BaseTweetRepo {
-  Future<void> getAllTweets();
+  Future<String?> getUsername();
 }

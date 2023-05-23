@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:fl_chart/fl_chart.dart';
-
-import '../../utils/theme_constants.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:twitter_gpt/blocs/app_init/app_init_bloc.dart';
+import 'package:twitter_gpt/common_widgets/custom_button.dart';
+import 'package:twitter_gpt/common_widgets/custom_outlined_button.dart';
+import 'package:twitter_gpt/repositories/tweets/tweet_repo.dart';
+import 'package:sizer/sizer.dart';
+import 'package:twitter_gpt/utils/session_helper.dart';
+import 'package:twitter_gpt/utils/theme_constants.dart';
 
 class HomePage extends StatefulWidget {
-  static const routeName = '/homepage';
-
-  const HomePage({Key? key}) : super(key: key);
+  static const routeName = '/home-page';
+  const HomePage({super.key});
   static Route route() {
-    return PageRouteBuilder(
+    return MaterialPageRoute(
       settings: const RouteSettings(name: routeName),
-      transitionDuration: const Duration(seconds: 0),
-      pageBuilder: (context, _, __) => const HomePage(),
+      builder: (context) => const HomePage(),
     );
   }
 
@@ -20,75 +24,92 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _currentIndex = 0;
+  // Replace with actual user profile
+  List<String>? thread;
+  TweetRepo tweetRepo = TweetRepo();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('TwitterGPT',
-            style: Theme.of(context).textTheme.headlineLarge),
-      ),
-      body: _currentIndex == 0 ? const TweetsPage() : const PerformancePage(),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Tweets',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart),
-            label: 'Performance',
-          ),
-        ],
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-      ),
-    );
-  }
-}
-
-class TweetsPage extends StatelessWidget {
-  const TweetsPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: const EdgeInsets.all(16.0),
-      itemCount: 10,
-      itemBuilder: (context, index) {
-        return Card(
-          child: ListTile(
-            title: Text('Generated Tweet #${index + 1}'),
-            subtitle: const Text('This is a dummy generated tweet.'),
-          ),
-        );
-      },
-    );
-  }
-}
-
-class PerformancePage extends StatelessWidget {
-  const PerformancePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: BarChart(
-        BarChartData(
-          maxY: 20,
-          barGroups: List.generate(
-            7,
-            (index) => BarChartGroupData(
-              x: index,
-              barRods: [
-                BarChartRodData(
-                    toY: (index + 1) * 2.0, color: AppColor.kMediumBlueColor),
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Text(
+                    'Suggested Thread',
+                    style: kTitleTextStyle,
+                  ),
+                ),
+                SizedBox(height: 8.h),
+                FutureBuilder<String?>(
+                  future: tweetRepo.generateTweet(SessionHelper.username!),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Column(
+                        children: [
+                          Center(
+                            child: SpinKitWanderingCubes(
+                              color: AppColor.kColorWhite,
+                              size: 35.sp,
+                            ),
+                          ),
+                          SizedBox(height: 2.h),
+                          const Text(
+                            'Generating Tweet...',
+                            style: TextStyle(color: AppColor.kColorOffWhite),
+                          ),
+                        ],
+                      );
+                    } else {
+                      if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        return Text(
+                          '${snapshot.data}',
+                          style:
+                              const TextStyle(color: AppColor.kColorOffWhite),
+                        );
+                      }
+                    }
+                  },
+                ),
+                SizedBox(height: 5.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Transform.scale(
+                        scale: 0.8,
+                        child: CustomButton(
+                            text: "Post Thread",
+                            onPressed: () async {
+                              await tweetRepo.postThread(
+                                  SessionHelper.thread!.skip(1).toList());
+                              // ignore: use_build_context_synchronously
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Thread Posted!',
+                                      style: TextStyle(
+                                          color: AppColor.kColorWhite)),
+                                  backgroundColor: AppColor.kDarkBlueColor,
+                                ),
+                              );
+                            })),
+                    Transform.scale(
+                      scale: 0.8,
+                      child: CustomOutlineButton(
+                        text: 'Log out',
+                        onPressed: () {
+                          BlocProvider.of<AppInitBloc>(context)
+                              .add(AuthLogoutRequested());
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

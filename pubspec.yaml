@@ -51,6 +51,8 @@ dependencies:
   fl_chart: ^0.62.0
   equatable: ^2.0.5
   flutter_bloc: ^7.0.0
+  http: ^0.13.6
+  flutter_spinkit: ^5.2.0
 
 dev_dependencies:
   flutter_test:

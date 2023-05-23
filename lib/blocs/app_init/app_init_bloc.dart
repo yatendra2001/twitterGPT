@@ -39,13 +39,14 @@ class AppInitBloc extends Bloc<AppInitEvent, AppInitState> {
 
   Stream<AppInitState> _mapAuthUserChangedToState(
       AuthUserChanged event) async* {
+    yield AppInitState.loading();
     if (event.user != null) {
       SessionHelper.displayName = event.user!.displayName;
       SessionHelper.phone = event.user!.phoneNumber;
       SessionHelper.uid = event.user!.uid;
       SessionHelper.bearerToken = await event.user!.getIdToken();
       // log('bearer token: ${SessionHelper.bearerToken}');
-      await TweetRepo().getAllTweets();
+      SessionHelper.username = await TweetRepo().getUsername();
       yield AppInitState.authenticated(user: event.user!);
     } else {
       yield AppInitState.unauthenticated();

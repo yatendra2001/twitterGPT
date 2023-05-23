@@ -1,6 +1,6 @@
 part of 'app_init_bloc.dart';
 
-enum AuthStatus { unknown, authenticated, unauthenticated }
+enum AuthStatus { unknown, authenticated, loading, unauthenticated }
 
 class AppInitState extends Equatable {
   final auth.User? user;
@@ -16,6 +16,9 @@ class AppInitState extends Equatable {
 
   factory AppInitState.unauthenticated() =>
       const AppInitState(status: AuthStatus.unauthenticated);
+
+  factory AppInitState.loading() =>
+      const AppInitState(status: AuthStatus.loading);
 
   @override
   bool get stringify => true;

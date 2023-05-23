@@ -12,6 +12,8 @@ class SessionHelper {
   static String? profileImageUrl;
   static String? bearerToken;
 
+  static List<String>? thread;
+
   static File? currentFile;
   static String? currentImageUrl;
   static List<String>? currentToxicChemicalsList;
