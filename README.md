@@ -15,7 +15,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/yatendra2001/Pikc-Scanner">
+  <a href="https://github.com/yatendra2001/twitter_gpt">
     <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/49fgso0w25bdidk930ay.png"  alt="Logo" width="200" height="200" >
   </a>
   
