@@ -1,15 +1,18 @@
+// 🎯 Dart imports:
 import 'dart:developer';
 
+// 🐦 Flutter imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:twitter_login/twitter_login.dart';
+
+// 🌎 Project imports:
 import 'package:twitter_gpt/config/paths.dart';
 import 'package:twitter_gpt/repositories/authentication/base_auth_repo.dart';
 import 'package:twitter_gpt/models/user_model.dart' as user_model;
-
-import 'package:twitter_login/twitter_login.dart';
 
 class AuthRepository extends BaseAuthRepository {
   final FirebaseFirestore _firebaseFirestore;

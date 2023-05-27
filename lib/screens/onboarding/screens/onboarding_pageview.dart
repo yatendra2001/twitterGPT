@@ -1,7 +1,10 @@
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+
+// 🌎 Project imports:
 import 'package:twitter_gpt/screens/onboarding/screens/custom_onboarding_screen.dart';
 import 'package:twitter_gpt/screens/onboarding/screens/stay_informed.dart';
 import 'package:twitter_gpt/screens/onboarding/screens/welcome_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:twitter_gpt/utils/theme_constants.dart';
 
 class OnboardingPageview extends StatefulWidget {

@@ -1,7 +1,10 @@
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
+
+// 🌎 Project imports:
 import 'package:twitter_gpt/common_widgets/custom_button.dart';
 import 'package:twitter_gpt/screens/onboarding/screens/link_twitter_screen.dart';
 import '../../../utils/asset_constants.dart';

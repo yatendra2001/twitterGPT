@@ -1,11 +1,11 @@
-// Packages Import
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
 
+// 🌎 Packages imports:
 import 'package:twitter_gpt/screens/onboarding/widgets/dot_indicator.dart';
-
 import '../../../common_widgets/custom_button.dart';
 import '../../../utils/asset_constants.dart';
 

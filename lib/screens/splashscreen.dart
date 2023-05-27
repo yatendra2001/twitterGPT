@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:twitter_gpt/screens/homepage/homepage.dart';
-import 'package:twitter_gpt/screens/onboarding/screens/onboarding_pageview.dart';
-import 'package:twitter_gpt/utils/asset_constants.dart';
-
+import '../screens/homepage/homepage.dart';
+import '../screens/onboarding/screens/onboarding_pageview.dart';
+import '../utils/asset_constants.dart';
 import '../blocs/app_init/app_init_bloc.dart';
 
 class SplashScreen extends StatefulWidget {

@@ -1,6 +1,9 @@
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+// 🌎 Project imports:
 import 'package:twitter_gpt/blocs/app_init/app_init_bloc.dart';
 import 'package:twitter_gpt/common_widgets/custom_button.dart';
 import 'package:twitter_gpt/common_widgets/custom_outlined_button.dart';
@@ -46,7 +49,9 @@ class _HomePageState extends State<HomePage> {
                 ),
                 SizedBox(height: 8.h),
                 FutureBuilder<String?>(
-                  future: tweetRepo.generateTweet(SessionHelper.username!),
+                  future: tweetRepo.generateTweet(
+                      userProfile:
+                          "https://twitter.com/${SessionHelper.username!}"),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Column(
@@ -87,7 +92,8 @@ class _HomePageState extends State<HomePage> {
                             text: "Post Thread",
                             onPressed: () async {
                               await tweetRepo.postThread(
-                                  SessionHelper.thread!.skip(1).toList());
+                                  thread:
+                                      SessionHelper.thread!.skip(1).toList());
                               // ignore: use_build_context_synchronously
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
