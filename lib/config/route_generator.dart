@@ -1,7 +1,9 @@
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
+// 🌎 Project imports:
 import 'package:twitter_gpt/screens/homepage/homepage.dart';
 import 'package:twitter_gpt/screens/onboarding/screens/onboarding_pageview.dart';
-
 import '../screens/splashscreen.dart';
 
 class RouteGenerator {

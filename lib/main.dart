@@ -1,6 +1,7 @@
-// 📦 Package imports:
+// 🎯 Dart imports:
 import 'dart:developer';
 
+// 🐦 Flutter imports:
 import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -65,11 +66,6 @@ class MyApp extends StatelessWidget {
               scaffoldBackgroundColor: AppColor.kColorNotBlack,
               appBarTheme: const AppBarTheme(
                 backgroundColor: AppColor.kColorBlack,
-              ),
-              bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-                backgroundColor: AppColor.kColorBlack,
-                selectedItemColor: AppColor.kLightBlueColor,
-                unselectedItemColor: AppColor.kColorWhite,
               ),
             ),
             onGenerateRoute: RouteGenerator.generateRoute,

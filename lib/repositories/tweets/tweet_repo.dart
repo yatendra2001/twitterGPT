@@ -1,11 +1,14 @@
+// 🎯 Dart imports:
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
+// 🐦 Flutter imports:
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:twitter_api_v2/twitter_api_v2.dart' as v2;
 
+// 🌎 Project imports:
 import 'package:twitter_gpt/repositories/tweets/base_tweet_repo.dart';
 import 'package:twitter_gpt/repositories/user/user_repo.dart';
 import 'package:twitter_gpt/utils/session_helper.dart';
@@ -35,14 +38,15 @@ class TweetRepo extends BaseTweetRepo {
         ],
       );
       log(me.data.toJson().toString());
-      return me.data.toJson()['description'];
+      return me.data.toJson()['username'];
     } catch (error) {
       log("tweet repo getAllTweets error: $error");
     }
     return null;
   }
 
-  Future<String?> generateTweet(String userProfile) async {
+  @override
+  Future<String?> generateTweet({required String userProfile}) async {
     try {
       final response = await http.post(
         Uri.parse('https://api.openai.com/v1/chat/completions'),
@@ -56,7 +60,7 @@ class TweetRepo extends BaseTweetRepo {
             {
               "role": "user",
               "content":
-                  "Analyse my Twitter profile description: $userProfile. Create a Twitter thread that I can post. Give me only thread nothing else."
+                  "Analyse my Twitter profile: $userProfile. Create a tweet that I can post. Give me only tweet nothing else."
             }
           ]
         }),
@@ -72,7 +76,8 @@ class TweetRepo extends BaseTweetRepo {
     return null;
   }
 
-  Future<List<String>?> generateThread(Map<String, dynamic> userProfile) async {
+  @override
+  Future<List<String>?> generateThread({required String userProfile}) async {
     try {
       final response = await http.post(
         Uri.parse('https://api.openai.com/v1/chat/completions'),
@@ -97,7 +102,8 @@ class TweetRepo extends BaseTweetRepo {
     return null;
   }
 
-  Future<void> postTweet(String tweetText) async {
+  @override
+  Future<void> postTweet({required String tweetText}) async {
     try {
       await _twitter.tweets.createTweet(text: tweetText);
     } catch (error) {
@@ -105,7 +111,8 @@ class TweetRepo extends BaseTweetRepo {
     }
   }
 
-  Future<List<v2.TweetData>> postThread(List<String> thread) async {
+  @override
+  Future<List<v2.TweetData>> postThread({required List<String> thread}) async {
     List<v2.TweetData> postedTweets = [];
 
     for (final tweet in thread) {
@@ -131,7 +138,6 @@ class TweetRepo extends BaseTweetRepo {
         postedTweets.add(postedTweet.data);
       }
     }
-
     return postedTweets;
   }
 }
