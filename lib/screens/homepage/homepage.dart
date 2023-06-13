@@ -1,12 +1,13 @@
 // 🐦 Flutter imports:
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // 🌎 Project imports:
 import 'package:twitter_gpt/repositories/tweets/tweet_repo.dart';
 import 'package:sizer/sizer.dart';
+import 'package:twitter_gpt/screens/homepage/write_tweet_screen.dart';
+import 'package:twitter_gpt/screens/settings/settings_screen.dart';
 import 'package:twitter_gpt/screens/widgets/custom_button.dart';
 import 'package:twitter_gpt/utils/asset_constants.dart';
 import 'package:twitter_gpt/utils/onboarding_data.dart';
@@ -26,89 +27,99 @@ class _HomePageState extends State<HomePage>
   // Replace with actual user profile
   List<String>? thread;
   TweetRepo tweetRepo = TweetRepo();
-  final ScrollController _scrollController = ScrollController();
 
   final suggestedTopicsTweetsMap = {};
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: DefaultTabController(
-        length: SessionHelper.userOnboardedData![OnboardingData.topics]!.length,
-        child: NestedScrollView(
-          headerSliverBuilder: (_, __) {
-            return [
-              SliverAppBar(
-                pinned: false,
-                automaticallyImplyLeading: false,
-                leading: Padding(
-                  padding: EdgeInsets.only(left: 2.w),
-                  child: Image.asset(
-                    twitterGPTLogoGreen,
-                    scale: 15,
-                    filterQuality: FilterQuality.low,
-                  ),
-                ),
-                title: Text(
-                  "Generate tweets",
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(fontWeight: FontWeight.w900),
-                ),
-                actions: [
-                  Padding(
-                    padding: EdgeInsets.only(right: 2.w),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.filter_list_outlined,
-                        color: AppColor.kGreenColor,
-                        size: 18.sp,
-                      ),
-                      onPressed: () {},
+      body: SafeArea(
+        child: DefaultTabController(
+          length:
+              SessionHelper.userOnboardedData![OnboardingData.topics]!.length,
+          child: NestedScrollView(
+            headerSliverBuilder: (_, __) {
+              return [
+                SliverAppBar(
+                  toolbarHeight: 8.h,
+                  pinned: false,
+                  automaticallyImplyLeading: false,
+                  leading: Padding(
+                    padding: EdgeInsets.only(left: 2.w),
+                    child: Image.asset(
+                      twitterGPTLogoGreen,
+                      scale: 15,
+                      filterQuality: FilterQuality.low,
                     ),
                   ),
-                ],
-              ),
-              PreferredSize(
-                preferredSize: Size.zero,
-                child: SliverAppBar(
-                  pinned: true,
-                  automaticallyImplyLeading: false,
-                  primary: false,
-                  toolbarHeight: 2.5.h,
-                  bottom: TabBar(
-                    isScrollable: true,
-                    unselectedLabelStyle: Theme.of(context)
+                  title: Text(
+                    "Generate tweets",
+                    style: Theme.of(context)
                         .textTheme
-                        .labelLarge!
-                        .copyWith(color: AppColor.kUnselectedTabLabelColorGrey),
-                    indicatorColor: AppColor.kGreenColor,
-                    labelColor: AppColor.kColorWhite,
-                    labelStyle: Theme.of(context).textTheme.labelLarge!,
-                    indicatorSize: TabBarIndicatorSize.label,
-                    tabs: [
-                      for (var topic in SessionHelper
-                          .userOnboardedData![OnboardingData.topics]!)
-                        Tab(
-                          text: OnboardingData
-                              .onboardingDataMap[OnboardingData.topics]![topic],
-                        )
-                    ],
+                        .titleLarge!
+                        .copyWith(fontWeight: FontWeight.w900),
+                  ),
+                  actions: [
+                    Padding(
+                      padding: EdgeInsets.only(right: 2.w),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.filter_list_outlined,
+                          color: AppColor.kGreenColor,
+                          size: 18.sp,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushNamed(SettingsScreen.routeName);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                PreferredSize(
+                  preferredSize: Size.zero,
+                  child: SliverAppBar(
+                    pinned: true,
+                    automaticallyImplyLeading: false,
+                    primary: false,
+                    toolbarHeight: 0.h,
+                    bottom: TabBar(
+                      isScrollable: true,
+                      tabAlignment: TabAlignment.start,
+                      unselectedLabelStyle: Theme.of(context)
+                          .textTheme
+                          .labelLarge!
+                          .copyWith(
+                              color: AppColor.kUnselectedTabLabelColorGrey),
+                      indicatorColor: AppColor.kGreenColor,
+                      labelColor: AppColor.kColorWhite,
+                      labelStyle: Theme.of(context).textTheme.labelLarge!,
+                      indicatorSize: TabBarIndicatorSize.label,
+                      tabs: [
+                        for (var topic in SessionHelper
+                            .userOnboardedData![OnboardingData.topics]!)
+                          Tab(
+                            text: OnboardingData.onboardingDataMap[
+                                OnboardingData.topics]![topic],
+                          )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ];
-          },
-          body: TabBarView(
-            children: SessionHelper.userOnboardedData![OnboardingData.topics]!
-                .map((topic) => TabsStatelessWidget())
-                .toList(),
+              ];
+            },
+            body: TabBarView(
+              children: SessionHelper.userOnboardedData![OnboardingData.topics]!
+                  .map((topic) => TabsStatelessWidget())
+                  .toList(),
+            ),
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed(WriteTweetScreen.routeName);
+        },
         backgroundColor: AppColor.kGreenColor,
         child: const FaIcon(
           FontAwesomeIcons.plus,
@@ -127,7 +138,7 @@ class TabsStatelessWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 2.w),
+      padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
       child: ListView.separated(
           itemBuilder: (context, index) => Container(
                 width: double.infinity,

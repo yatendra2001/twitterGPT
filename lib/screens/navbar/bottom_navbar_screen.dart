@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'package:sizer/sizer.dart';
 import 'package:twitter_gpt/screens/homepage/homepage.dart';
-import 'package:twitter_gpt/screens/reply/reply_screen.dart';
+import 'package:twitter_gpt/screens/reply/replypage.dart';
 import 'package:twitter_gpt/utils/asset_constants.dart';
 import 'package:twitter_gpt/utils/theme_constants.dart';
 
@@ -25,7 +24,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   int _selectedIndex = 0;
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    ReplyScreen(),
+    ReplyPage(),
   ];
 
   @override

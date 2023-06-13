@@ -32,3 +32,8 @@ final kBackButtonTextStyle = TextStyle(
   fontWeight: FontWeight.normal,
   fontFamily: GoogleFonts.inter().fontFamily,
 );
+
+final kDivider = Divider(
+  color: AppColor.kColorGrey,
+  height: 4.h,
+);
