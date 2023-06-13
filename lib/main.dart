@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:twitter_gpt/config/route_generator.dart';
 import 'package:twitter_gpt/repositories/tweets/tweet_repo.dart';
@@ -62,11 +63,13 @@ class MyApp extends StatelessWidget {
             title: 'twitterGPT',
             theme: ThemeData.dark().copyWith(
               brightness: Brightness.dark,
-              primaryColor: AppColor.kDarkBlueColor,
-              scaffoldBackgroundColor: AppColor.kColorNotBlack,
+              primaryColor: AppColor.kGreenColor,
+              scaffoldBackgroundColor: AppColor.kColorBlack,
               appBarTheme: const AppBarTheme(
                 backgroundColor: AppColor.kColorBlack,
               ),
+              textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme)
+                  .apply(bodyColor: AppColor.kColorWhite),
             ),
             onGenerateRoute: RouteGenerator.generateRoute,
             initialRoute: SplashScreen.routeName,

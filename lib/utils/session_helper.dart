@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:twitter_gpt/utils/onboarding_data.dart';
+
 class SessionHelper {
   static String? displayName;
   static String? firstName;
@@ -17,6 +19,12 @@ class SessionHelper {
   static File? currentFile;
   static String? currentImageUrl;
   static List<String>? currentToxicChemicalsList;
+
+  static Map<String, List<int>>? userOnboardedData = {
+    OnboardingData.topics: [],
+    OnboardingData.writingStyle: [],
+    OnboardingData.conversationTone: []
+  };
 
   static bool isThroughHistory = false;
 }

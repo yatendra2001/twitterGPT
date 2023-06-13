@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
 import 'package:twitter_gpt/screens/onboarding/screens/custom_onboarding_screen.dart';
-import 'package:twitter_gpt/screens/onboarding/screens/stay_informed.dart';
-import 'package:twitter_gpt/screens/onboarding/screens/welcome_screen.dart';
-import 'package:twitter_gpt/utils/theme_constants.dart';
+import 'package:twitter_gpt/utils/onboarding_data.dart';
 
 class OnboardingPageview extends StatefulWidget {
   static const routeName = '/onboarding-pageview';
@@ -24,12 +22,9 @@ class OnboardingPageview extends StatefulWidget {
 }
 
 class _OnboardingPageviewState extends State<OnboardingPageview> {
-  late int _page;
-
   @override
   void initState() {
     super.initState();
-    _page = 0;
   }
 
   final PageController _pageController = PageController(initialPage: 0);
@@ -37,76 +32,39 @@ class _OnboardingPageviewState extends State<OnboardingPageview> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        leading: _page != 0
-            ? IconButton(
-                onPressed: () {
-                  _pageController.previousPage(
-                    duration: const Duration(milliseconds: 400),
-                    curve: Curves.linear,
-                  );
-                },
-                icon: const Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  color: AppColor.kColorWhite,
-                ),
-              )
-            : null,
-      ),
       resizeToAvoidBottomInset: false,
-      body: GestureDetector(
-        onTap: () {
-          _pageController.nextPage(
-            duration: const Duration(milliseconds: 450),
-            curve: Curves.linear,
-          );
-        },
-        child: PageView(
-          clipBehavior: Clip.none,
-          scrollDirection: Axis.horizontal,
-          controller: _pageController,
-          onPageChanged: _onPageViewChange,
-          children: _buildPages(),
-        ),
+      body: PageView(
+        clipBehavior: Clip.none,
+        physics: const NeverScrollableScrollPhysics(),
+        controller: _pageController,
+        children: _buildPages(),
       ),
     );
   }
 
   List<Widget> _buildPages() {
     return [
-      WelcomeScreen(
+      CustomScreen(
+        pageName: OnboardingData.topics,
         pageController: _pageController,
+        title: "What do you want to tweet about on Twitter?",
+        text:
+            "Select at least 3 interests to personalize your TwitterGPT experience.",
       ),
       CustomScreen(
-        pageNumber: 1,
+        pageName: OnboardingData.writingStyle,
         pageController: _pageController,
-        title: "Generate Tweets with Ease",
+        title: "What is your go to writing style?",
         text:
-            "Craft personalized tweets and threads in your style with the power of AI, right at your fingertips.",
+            "This will effect the way your tweets and replies are constructed. They can be edited in settings. Selecting multiple styles may impact accuracy.",
       ),
       CustomScreen(
-        pageNumber: 2,
+        pageName: OnboardingData.conversationTone,
         pageController: _pageController,
-        title: "Boost Your Twitter Engagement",
+        title: "What is your desired conversation tone?",
         text:
-            "Discover trending topics suggested by our AI, helping you stay relevant and grow your audience.",
-      ),
-      StayInformedScreen(
-        pageNumber: 3,
-        pageController: _pageController,
-        title: "Analyze and Improve",
-        text:
-            "Track the performance of your tweets, gain insights, and tweak your strategy for optimum Twitter growth.",
+            "This will effect the way your tweets and replies are constructed. They can be edited in settings. Selecting multiple tones may impact accuracy.",
       ),
     ];
-  }
-
-  _onPageViewChange(int value) {
-    setState(() {
-      _page = value;
-    });
   }
 }

@@ -53,6 +53,8 @@ dependencies:
   flutter_bloc: ^7.0.0
   http: ^0.13.6
   flutter_spinkit: ^5.2.0
+  url_launcher: ^6.1.11
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:

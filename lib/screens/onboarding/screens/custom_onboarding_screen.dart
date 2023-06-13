@@ -1,28 +1,31 @@
 // 🎯 Dart imports:
 
 // 🐦 Flutter imports:
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
+import 'package:twitter_gpt/screens/homepage/homepage.dart';
+import 'package:twitter_gpt/screens/navbar/bottom_navbar_screen.dart';
+import 'package:twitter_gpt/utils/onboarding_data.dart';
+import 'package:twitter_gpt/utils/session_helper.dart';
+import 'package:twitter_gpt/utils/theme_constants.dart';
 
 // 🌎 Project imports:
-import '../../../common_widgets/custom_button.dart';
 import '../../../utils/asset_constants.dart';
-import '../widgets/dot_indicator.dart';
 
 class CustomScreen extends StatefulWidget {
   final PageController pageController;
   static const routename = '/custom-screeen';
 
-  final double pageNumber;
+  final String pageName;
   final String title;
   final String text;
 
   const CustomScreen({
     Key? key,
     required this.pageController,
-    required this.pageNumber,
+    required this.pageName,
     required this.title,
     required this.text,
   }) : super(key: key);
@@ -32,101 +35,197 @@ class CustomScreen extends StatefulWidget {
 }
 
 class _CustomScreenState extends State<CustomScreen> {
+  List<int> selectedBoxes = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                buildAnimation(),
-                SizedBox(height: 5.h),
-                Expanded(
-                  flex: 4,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          children: [
-                            Text(
-                              widget.title,
-                              style: GoogleFonts.lexend().copyWith(
-                                  fontWeight: FontWeight.w700, fontSize: 24.sp),
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(
-                              height: 4.h,
-                            ),
-                            Text(
-                              widget.text,
-                              style: GoogleFonts.lexend().copyWith(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 11.sp,
-                                color: const Color(0XFF8F9BBA),
-                                height: 1.5,
-                                letterSpacing: 1,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.h),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 10.h,
+                    width: double.infinity,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        TextButton(
+                            child: Text("Cancel",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(color: AppColor.kColorWhite)),
+                            onPressed: () => widget.pageName ==
+                                    OnboardingData.topics
+                                ? Navigator.of(context).pop()
+                                : widget.pageController.previousPage(
+                                    duration: const Duration(milliseconds: 400),
+                                    curve: Curves.linear)),
+                        SizedBox(width: 25.w),
+                        Image.asset(
+                          twitterGPTLogoGreen,
+                          scale: 8.5,
+                          filterQuality: FilterQuality.low,
                         ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          children: [
-                            CustomDotIndicator(
-                              curPageIndex: widget.pageNumber,
-                              onTap: (page) {
-                                widget.pageController.jumpToPage(page.round());
-                              },
-                            ),
-                            SizedBox(
-                              height: 6.h,
-                            ),
-                            CustomButton(
-                              text: "Continue",
-                              onPressed: () {
-                                widget.pageController.nextPage(
-                                  duration: const Duration(milliseconds: 400),
-                                  curve: Curves.linear,
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 4.h,
-                )
-              ],
+                  SizedBox(height: 4.h),
+                  SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      widget.title,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineSmall!
+                          .copyWith(fontWeight: FontWeight.w900),
+                    ),
+                  ),
+                  SizedBox(height: 2.h),
+                  Text(
+                    widget.text,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: AppColor.kColorGrey,
+                        height: 1.5,
+                        wordSpacing: 2),
+                  ),
+                ],
+              ),
             ),
-          ),
+            const Divider(
+              color: AppColor.kColorGrey,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4.w),
+              child: GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount:
+                      OnboardingData.onboardingDataMap[widget.pageName]!.length,
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 2.h,
+                      crossAxisSpacing: 4.w,
+                      childAspectRatio: 2),
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          if (selectedBoxes.contains(index) == false) {
+                            selectedBoxes.add(index);
+                          } else if (selectedBoxes.contains(index) == true) {
+                            selectedBoxes.remove(index);
+                          }
+                        });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: selectedBoxes.contains(index) == true
+                              ? AppColor.kGreenColor
+                              : AppColor.kBoxesColorGrey.withOpacity(0.4),
+                          border: Border.all(
+                              color:
+                                  AppColor.kBorderColorGrey.withOpacity(0.2)),
+                        ),
+                        child: Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Padding(
+                            padding: EdgeInsets.all(18.sp),
+                            child: Text(
+                              OnboardingData
+                                  .onboardingDataMap[widget.pageName]![index],
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge!
+                                  .copyWith(
+                                      color: AppColor.kColorWhite,
+                                      fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+            ),
+          ],
         ),
       ),
-    );
-  }
-
-  Widget buildAnimation() {
-    return Expanded(
-      flex: 2,
-      child: LottieBuilder.asset(
-        widget.pageNumber == 1.0
-            ? kPage2Animation
-            : widget.pageNumber == 2.0
-                ? kPage3Animation
-                : "",
-      ),
+      bottomNavigationBar: selectedBoxes.isEmpty == true
+          ? null
+          : AnimatedContainer(
+              duration: const Duration(milliseconds: 1000),
+              curve: Curves.easeInBack,
+              height: 9.h,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: AppColor.kColorBlack,
+                border: Border(
+                  top: BorderSide(color: AppColor.kBottomNavBarBorderColorGrey),
+                ),
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 8.w,
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      selectedBoxes.length > 3
+                          ? "${selectedBoxes.length} selected"
+                          : "${selectedBoxes.length} selected of 3 selected",
+                      style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                          color: AppColor.kColorWhite,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 5.h,
+                      width: 20.w,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColor.kColorWhite,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          child: Text(
+                            "Next",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                    color: AppColor.kColorBlack,
+                                    fontWeight: FontWeight.w600),
+                          ),
+                          onPressed: () {
+                            debugPrint("page name: ${widget.pageName}");
+                            debugPrint("selected box: $selectedBoxes");
+                            SessionHelper.userOnboardedData![widget.pageName] =
+                                selectedBoxes;
+                            debugPrint(
+                                "Session helper: ${SessionHelper.userOnboardedData}");
+                            if (widget.pageName ==
+                                OnboardingData.conversationTone) {
+                              Navigator.of(context)
+                                  .pushNamed(BottomNavBarScreen.routeName);
+                            } else {
+                              widget.pageController.nextPage(
+                                  duration: const Duration(milliseconds: 400),
+                                  curve: Curves.linear);
+                            }
+                          }),
+                    ),
+                  ],
+                ),
+              ),
+            ),
     );
   }
 }

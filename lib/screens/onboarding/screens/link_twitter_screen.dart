@@ -11,8 +11,6 @@ import 'package:twitter_gpt/repositories/authentication/auth_repo.dart';
 import 'package:twitter_gpt/utils/theme_constants.dart';
 
 // 🌎 Project imports:
-import '../../../common_widgets/custom_button.dart';
-import '../../../common_widgets/custom_outlined_button.dart';
 import '../../../utils/asset_constants.dart';
 
 class LinkTwitterScreen extends StatefulWidget {
@@ -102,7 +100,7 @@ class _LinkTwitterScreenState extends State<LinkTwitterScreen> {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   // side: const BorderSide(color: AppColor.kColorWhite, width: 1),
-                  backgroundColor: AppColor.kLightBlueColor,
+                  backgroundColor: AppColor.kColorWhite,
                   padding: EdgeInsets.symmetric(vertical: 1.5.h),
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(
@@ -122,9 +120,9 @@ class _LinkTwitterScreenState extends State<LinkTwitterScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.end,
-                      children: const [
+                      children: [
                         FaIcon(
                           FontAwesomeIcons.twitter,
                           color: AppColor.kColorWhite,
@@ -136,7 +134,7 @@ class _LinkTwitterScreenState extends State<LinkTwitterScreen> {
                     ),
                     Text(
                       "Sign in with twitter",
-                      style: GoogleFonts.dmSans().copyWith(
+                      style: GoogleFonts.inter().copyWith(
                         fontWeight: FontWeight.w700,
                         fontSize: 12.sp,
                         color: AppColor.kColorWhite,
@@ -167,7 +165,7 @@ class _LinkTwitterScreenState extends State<LinkTwitterScreen> {
                 ),
               ),
               Lottie.asset(kConfettiJson, height: 25.h),
-              CustomButton(onPressed: widget.afterConnect, text: "Okay"),
+              // CustomButton(onPressed: widget.afterConnect, text: "Okay"),
               SizedBox(
                 height: 3.h,
               ),
@@ -247,8 +245,8 @@ class _LinkTwitterScreenState extends State<LinkTwitterScreen> {
                             Colors.red[600] // This is what you need!
                         ),
                     onPressed: () {},
-                    child: Column(
-                      children: const [
+                    child: const Column(
+                      children: [
                         Text('Logout'),
                       ],
                     )),
@@ -285,23 +283,23 @@ class _LinkTwitterScreenState extends State<LinkTwitterScreen> {
               // controller: _walletAddressController,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColor.kDarkBlueColor)),
+                    borderSide: BorderSide(color: AppColor.kGreenColor)),
                 enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColor.kDarkBlueColor)),
+                    borderSide: BorderSide(color: AppColor.kGreenColor)),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: AppColor.kDarkBlueColor,
+                    color: AppColor.kGreenColor,
                   ),
                 ),
-                labelStyle: TextStyle(color: AppColor.kDarkBlueColor),
-                hintStyle: TextStyle(color: AppColor.kDarkBlueColor),
+                labelStyle: TextStyle(color: AppColor.kGreenColor),
+                hintStyle: TextStyle(color: AppColor.kGreenColor),
                 labelText: 'NFT Name',
               ),
             ),
           ),
           Transform.scale(
             scale: 0.7,
-            child: CustomOutlineButton(text: "Done", onPressed: () {}),
+            // child: CustomOutlineButton(text: "Done", onPressed: () {}),
           ),
         ],
       ),

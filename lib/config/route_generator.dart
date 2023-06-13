@@ -2,9 +2,11 @@
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
-import 'package:twitter_gpt/screens/homepage/homepage.dart';
+import 'package:twitter_gpt/screens/login/login_screen.dart';
+import 'package:twitter_gpt/screens/navbar/bottom_navbar_screen.dart';
+import 'package:twitter_gpt/screens/onboarding/screens/apikey_screen.dart';
 import 'package:twitter_gpt/screens/onboarding/screens/onboarding_pageview.dart';
-import '../screens/splashscreen.dart';
+import 'package:twitter_gpt/screens/splashscreen.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -21,9 +23,12 @@ class RouteGenerator {
         return OnboardingPageview.route();
       case SplashScreen.routeName:
         return SplashScreen.route();
-      case HomePage.routeName:
-        return HomePage.route();
-
+      case BottomNavBarScreen.routeName:
+        return BottomNavBarScreen.route();
+      case LoginScreen.routeName:
+        return LoginScreen.route();
+      case ApiKeyScreen.routeName:
+        return ApiKeyScreen.route();
       default:
         return _errorRoute();
     }
