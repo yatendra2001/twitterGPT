@@ -56,7 +56,7 @@ CALLBACK_URL=Your_Callback_URL
 CLIENT_ID=Your_Client_ID
 CLIENT_SECRET=Your_Client_Secret
 
-# Supabase URL(s)
+# AppWrite Data
 APPWRITE_PROJECT_ID=YOUR_PROJECT_ID
 
 # Open AI
