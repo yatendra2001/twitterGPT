@@ -1,9 +1,12 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:twitter_gpt/screens/homepage/write_tweet_screen.dart';
+import 'package:twitter_gpt/screens/login/twitter_screen.dart';
 
 // 🌎 Project imports:
-import 'package:twitter_gpt/screens/login/login_screen.dart';
+import 'package:twitter_gpt/screens/login/welcome_screen.dart';
+import 'package:twitter_gpt/screens/login/signin_screen.dart';
+import 'package:twitter_gpt/screens/login/signup_screen.dart';
 import 'package:twitter_gpt/screens/navbar/bottom_navbar_screen.dart';
 import 'package:twitter_gpt/screens/onboarding/screens/apikey_screen.dart';
 import 'package:twitter_gpt/screens/onboarding/screens/onboarding_pageview.dart';
@@ -27,8 +30,14 @@ class RouteGenerator {
         return SplashScreen.route();
       case BottomNavBarScreen.routeName:
         return BottomNavBarScreen.route();
-      case LoginScreen.routeName:
-        return LoginScreen.route();
+      case WelcomeScreen.routeName:
+        return WelcomeScreen.route();
+      case SignInScreen.routeName:
+        return SignInScreen.route();
+      case SignUpScreen.routeName:
+        return SignUpScreen.route();
+      case TwitterScreen.routeName:
+        return TwitterScreen.route();
       case ApiKeyScreen.routeName:
         return ApiKeyScreen.route();
       case SettingsScreen.routeName:

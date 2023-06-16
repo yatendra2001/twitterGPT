@@ -1,7 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:sizer/sizer.dart';
+import 'package:twitter_gpt/models/user_preference.dart';
+import 'package:twitter_gpt/repositories/appwrite_repo/appwrite_repo.dart';
+import 'package:twitter_gpt/screens/widgets/custom_button.dart';
 
 import 'package:twitter_gpt/utils/onboarding_data.dart';
 import 'package:twitter_gpt/utils/session_helper.dart';
@@ -11,10 +17,10 @@ class SettingsScreen extends StatefulWidget {
   static const routeName = '/settings-screen';
   const SettingsScreen({super.key});
   static Route route() {
-    return MaterialPageRoute(
-      settings: const RouteSettings(name: routeName),
-      builder: (context) => const SettingsScreen(),
-    );
+    return PageTransition(
+        settings: const RouteSettings(name: routeName),
+        child: const SettingsScreen(),
+        type: PageTransitionType.rightToLeft);
   }
 
   @override
@@ -22,13 +28,16 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  final textFormattingMap = {
-    "Use emojis": true,
-    "Use punctuations": true,
-    "Use slang (experimental)": true,
-    "End tweets with a full-stop": true,
-    "Use lowercase": false,
-  };
+  late Map<String, dynamic> textFormattingMap;
+  bool _isLoading = false;
+  @override
+  void initState() {
+    super.initState();
+    textFormattingMap =
+        jsonDecode(SessionHelper.userPreference!.userFormattingPreferenceMap)
+            as Map<String, dynamic>;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -43,11 +52,61 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 .copyWith(fontWeight: FontWeight.w900),
           ),
           centerTitle: true,
-          automaticallyImplyLeading: true,
+          leading: _isLoading == true
+              ? null
+              : IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
+                    color: AppColor.kColorWhite,
+                  ),
+                ),
+          actions: [
+            Transform.scale(
+              scale: 0.7,
+              child: CustomButton(
+                height: 3.h,
+                width: 25.w,
+                padding: 0,
+                onPressed: () async {
+                  setState(() {
+                    _isLoading = true;
+                  });
+                  SessionHelper.userPreference = UserPreference(
+                      uid: SessionHelper.uid,
+                      userFormattingPreferenceMap:
+                          jsonEncode(textFormattingMap),
+                      userTopics: SessionHelper.userPreference!.userTopics,
+                      userWritingStyle:
+                          SessionHelper.userPreference!.userWritingStyle,
+                      userWritingTone:
+                          SessionHelper.userPreference!.userWritingTone);
+                  await AppwriteRepo()
+                      .updateUserPreferenceToUserPreferenceDataCollection(
+                          userPreference: SessionHelper.userPreference!);
+
+                  setState(() {
+                    _isLoading = false;
+                    SessionHelper.isHomePageLoaded = false;
+                  });
+                },
+                text: "Save",
+                isColorGreen: true,
+              ),
+            ),
+          ],
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
+              if (_isLoading == true)
+                const Align(
+                    alignment: Alignment.topCenter,
+                    child: LinearProgressIndicator(
+                      color: AppColor.kGreenColor,
+                    )),
               const Divider(
                 color: AppColor.kColorGrey,
               ),
@@ -153,6 +212,17 @@ class SetttingsChipsWidget extends StatefulWidget {
 }
 
 class _SetttingsChipsWidgetState extends State<SetttingsChipsWidget> {
+  late List<String> labelDataList;
+  @override
+  void initState() {
+    super.initState();
+    labelDataList = widget.dataType == OnboardingData.topics
+        ? SessionHelper.userPreference!.userTopics!
+        : widget.dataType == OnboardingData.writingStyle
+            ? SessionHelper.userPreference!.userWritingStyle!
+            : SessionHelper.userPreference!.userWritingTone!;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -200,20 +270,39 @@ class _SetttingsChipsWidgetState extends State<SetttingsChipsWidget> {
                       if (realIndex >=
                           OnboardingData.onboardingDataMap[widget.dataType]!
                               .length) return null;
-                      final isSelected = SessionHelper
-                          .userOnboardedData![widget.dataType]!
-                          .contains(realIndex);
+                      final isSelected = labelDataList.contains(OnboardingData
+                          .onboardingDataMap[widget.dataType]![realIndex]);
                       return Padding(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                             right: 8.0), // add some spacing between the chips
                         child: Chip(
                           onDeleted: () => setState(() {
                             if (isSelected) {
-                              SessionHelper.userOnboardedData![widget.dataType]!
-                                  .remove(realIndex);
+                              labelDataList.remove(
+                                  OnboardingData.onboardingDataMap[
+                                      widget.dataType]![realIndex]);
+                              debugPrint(SessionHelper
+                                  .userPreference!.userTopics
+                                  .toString());
+                              debugPrint(SessionHelper
+                                  .userPreference!.userWritingStyle
+                                  .toString());
+                              debugPrint(SessionHelper
+                                  .userPreference!.userWritingTone
+                                  .toString());
                             } else {
-                              SessionHelper.userOnboardedData![widget.dataType]!
-                                  .add(realIndex);
+                              labelDataList.add(
+                                  OnboardingData.onboardingDataMap[
+                                      widget.dataType]![realIndex]);
+                              debugPrint(SessionHelper
+                                  .userPreference!.userTopics
+                                  .toString());
+                              debugPrint(SessionHelper
+                                  .userPreference!.userWritingStyle
+                                  .toString());
+                              debugPrint(SessionHelper
+                                  .userPreference!.userWritingTone
+                                  .toString());
                             }
                           }),
                           backgroundColor: isSelected
@@ -245,7 +334,7 @@ class _SetttingsChipsWidgetState extends State<SetttingsChipsWidget> {
                 ),
               SizedBox(height: 1.h),
             ],
-          )
+          ),
         ],
       ),
     );

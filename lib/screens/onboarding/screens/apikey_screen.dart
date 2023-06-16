@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:sizer/sizer.dart';
 import 'package:twitter_gpt/screens/onboarding/screens/onboarding_pageview.dart';
 import 'package:twitter_gpt/screens/widgets/custom_button.dart';
@@ -14,10 +15,10 @@ class ApiKeyScreen extends StatelessWidget {
   const ApiKeyScreen({Key? key}) : super(key: key);
 
   static Route route() {
-    return PageRouteBuilder(
+    return PageTransition(
       settings: const RouteSettings(name: routeName),
-      transitionDuration: const Duration(seconds: 0),
-      pageBuilder: (context, _, __) => const ApiKeyScreen(),
+      type: PageTransitionType.rightToLeft,
+      child: const ApiKeyScreen(),
     );
   }
 
@@ -100,6 +101,7 @@ class ApiKeyScreen extends StatelessWidget {
             TextField(
               cursorColor: AppColor.kColorGrey,
               autofocus: true,
+              obscureText: true,
               decoration: InputDecoration(
                 hintText: "OpenAI key",
                 hintStyle: Theme.of(context)

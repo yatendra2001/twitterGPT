@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import 'package:sizer/sizer.dart';
 import 'package:twitter_gpt/screens/homepage/homepage.dart';
@@ -10,14 +11,14 @@ class BottomNavBarScreen extends StatefulWidget {
   static const routeName = '/bottom-nav-bar';
   const BottomNavBarScreen({super.key});
   static Route route() {
-    return MaterialPageRoute(
-      settings: const RouteSettings(name: routeName),
-      builder: (context) => const BottomNavBarScreen(),
-    );
+    return PageTransition(
+        settings: const RouteSettings(name: routeName),
+        child: const BottomNavBarScreen(),
+        type: PageTransitionType.fade);
   }
 
   @override
-  _BottomNavBarScreenState createState() => _BottomNavBarScreenState();
+  State<BottomNavBarScreen> createState() => _BottomNavBarScreenState();
 }
 
 class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
@@ -29,14 +30,16 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
         body: Center(
           child: _widgetOptions.elementAt(_selectedIndex),
         ),
         bottomNavigationBar: Container(
           height: 8.h,
           width: double.infinity,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: AppColor.kColorBlack,
             border: Border(
               top: BorderSide(color: AppColor.kColorGrey, width: 0.5),
@@ -67,6 +70,8 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
               ),
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

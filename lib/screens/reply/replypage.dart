@@ -55,7 +55,7 @@ class _ReplyPageState extends State<ReplyPage> {
                       cursorColor: AppColor.kColorGrey,
                       controller: _textEditingController,
                       onChanged: (value) => setState(() {
-                        value.length > 0 ? isEmpty = false : isEmpty = true;
+                        value.isNotEmpty ? isEmpty = false : isEmpty = true;
                       }),
                       keyboardType: TextInputType.multiline,
                       minLines: 10,

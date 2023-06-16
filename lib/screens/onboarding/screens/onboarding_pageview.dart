@@ -1,5 +1,6 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 // 🌎 Project imports:
 import 'package:twitter_gpt/screens/onboarding/screens/custom_onboarding_screen.dart';
@@ -10,10 +11,10 @@ class OnboardingPageview extends StatefulWidget {
   const OnboardingPageview({Key? key}) : super(key: key);
 
   static Route route() {
-    return PageRouteBuilder(
+    return PageTransition(
       settings: const RouteSettings(name: routeName),
-      transitionDuration: const Duration(seconds: 0),
-      pageBuilder: (context, _, __) => const OnboardingPageview(),
+      type: PageTransitionType.rightToLeft,
+      child: const OnboardingPageview(),
     );
   }
 

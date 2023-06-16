@@ -1,8 +1,13 @@
 // 🎯 Dart imports:
 
 // 🐦 Flutter imports:
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:twitter_gpt/models/user_preference.dart';
+import 'package:twitter_gpt/repositories/appwrite_repo/appwrite_repo.dart';
+import 'package:twitter_gpt/repositories/tweets/tweet_repo.dart';
 
 // 🌎 Project imports:
 import 'package:twitter_gpt/utils/asset_constants.dart';
@@ -33,6 +38,7 @@ class CustomScreen extends StatefulWidget {
 
 class _CustomScreenState extends State<CustomScreen> {
   List<int> selectedBoxes = [];
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -192,32 +198,93 @@ class _CustomScreenState extends State<CustomScreen> {
                               borderRadius: BorderRadius.circular(30),
                             ),
                           ),
-                          child: Text(
-                            "Next",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
+                          onPressed: selectedBoxes.isEmpty
+                              ? null
+                              : () async {
+                                  SessionHelper
+                                          .userOnboardedData![widget.pageName] =
+                                      selectedBoxes;
+                                  debugPrint(
+                                      "Session helper: ${SessionHelper.userOnboardedData}");
+                                  if (widget.pageName ==
+                                      OnboardingData.conversationTone) {
+                                    setState(() {
+                                      _isLoading = true;
+                                    });
+                                    SessionHelper.prompt = "";
+                                    final user = await TweetRepo()
+                                        .getTwitterUserProfile();
+                                    final ans = await AppwriteRepo()
+                                        .addUserDataToUserCollection(
+                                            user: user!);
+
+                                    final ans2 = await AppwriteRepo()
+                                        .addUserPreferenceToUserPreferenceDataCollection(
+                                            userPreference: UserPreference(
+                                      uid: SessionHelper.uid,
+                                      userTopics: SessionHelper
+                                          .userOnboardedData![
+                                              OnboardingData.topics]
+                                          ?.map((index) => OnboardingData
+                                                  .onboardingDataMap[
+                                              OnboardingData.topics]![index])
+                                          .toList(),
+                                      userWritingStyle: SessionHelper
+                                          .userOnboardedData![
+                                              OnboardingData.writingStyle]
+                                          ?.map((index) =>
+                                              OnboardingData.onboardingDataMap[
+                                                  OnboardingData
+                                                      .writingStyle]![index])
+                                          .toList(),
+                                      userWritingTone: SessionHelper
+                                          .userOnboardedData![
+                                              OnboardingData.conversationTone]
+                                          ?.map((index) => OnboardingData
+                                                  .onboardingDataMap[
+                                              OnboardingData
+                                                  .conversationTone]![index])
+                                          .toList(),
+                                      userFormattingPreferenceMap: jsonEncode({
+                                        "Use plain language": true,
+                                        "Use bullets": true,
+                                        "Use slang (experimental)": true,
+                                        "End tweets with hash tags": true,
+                                      }),
+                                    ));
+                                    setState(() {
+                                      _isLoading = false;
+                                    });
+                                    if (ans == true && ans2 == true) {
+                                      // ignore: use_build_context_synchronously
+                                      Navigator.of(context).pushNamed(
+                                          BottomNavBarScreen.routeName);
+                                    }
+                                  } else {
+                                    widget.pageController.nextPage(
+                                        duration:
+                                            const Duration(milliseconds: 400),
+                                        curve: Curves.linear);
+                                  }
+                                },
+                          child: _isLoading == true
+                              ? SizedBox(
+                                  height: 2.5.h,
+                                  width: 2.5.h,
+                                  child: const CircularProgressIndicator(
                                     color: AppColor.kColorBlack,
-                                    fontWeight: FontWeight.w600),
-                          ),
-                          onPressed: () {
-                            debugPrint("page name: ${widget.pageName}");
-                            debugPrint("selected box: $selectedBoxes");
-                            SessionHelper.userOnboardedData![widget.pageName] =
-                                selectedBoxes;
-                            debugPrint(
-                                "Session helper: ${SessionHelper.userOnboardedData}");
-                            if (widget.pageName ==
-                                OnboardingData.conversationTone) {
-                              Navigator.of(context)
-                                  .pushNamed(BottomNavBarScreen.routeName);
-                            } else {
-                              widget.pageController.nextPage(
-                                  duration: const Duration(milliseconds: 400),
-                                  curve: Curves.linear);
-                            }
-                          }),
+                                    strokeWidth: 3,
+                                  ),
+                                )
+                              : Text(
+                                  "Next",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(
+                                          color: AppColor.kColorBlack,
+                                          fontWeight: FontWeight.w600),
+                                )),
                     ),
                   ],
                 ),

@@ -4,9 +4,9 @@ import 'dart:developer';
 // 🐦 Flutter imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:twitter_gpt/utils/session_helper.dart';
 import 'package:twitter_login/twitter_login.dart';
 
 // 🌎 Project imports:
@@ -74,22 +74,25 @@ class AuthRepository extends BaseAuthRepository {
       log("accessToken: ${authResult.authToken}");
       log("authTokenSecret: ${authResult.authTokenSecret}");
 
-      // Create a credential from the access token
-      final twitterAuthCredential = TwitterAuthProvider.credential(
-        accessToken: authResult.authToken!,
-        secret: authResult.authTokenSecret!,
-      );
+      SessionHelper.accessToken = authResult.authToken;
+      SessionHelper.accessTokenSecret = authResult.authTokenSecret;
 
-      _firebaseAuth.signInWithCredential(twitterAuthCredential);
-      final userDetails = authResult.user;
-      final user = user_model.User(
-        twitterId: userDetails!.id,
-        name: userDetails.name,
-        screenName: userDetails.screenName,
-        thumbnailImage: userDetails.thumbnailImage,
-      );
+      // // Create a credential from the access token
+      // final twitterAuthCredential = TwitterAuthProvider.credential(
+      //   accessToken: authResult.authToken!,
+      //   secret: authResult.authTokenSecret!,
+      // );
 
-      return user;
+      // _firebaseAuth.signInWithCredential(twitterAuthCredential);
+      // final userDetails = authResult.user;
+      // final user = user_model.User(
+      //   twitterId: userDetails!.id,
+      //   name: userDetails.name,
+      //   screenName: userDetails.screenName,
+      //   thumbnailImage: userDetails.thumbnailImage,
+      // );
+
+      // return user;
     } catch (error) {
       log("twitter auth error: $error");
     }

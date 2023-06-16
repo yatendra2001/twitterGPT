@@ -1,5 +1,8 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:twitter_gpt/models/user_model.dart';
+import 'package:twitter_gpt/models/user_preference.dart';
 import 'package:twitter_gpt/utils/onboarding_data.dart';
 
 class SessionHelper {
@@ -13,20 +16,33 @@ class SessionHelper {
   static String? uid;
   static String? profileImageUrl;
   static String? bearerToken;
+  static String? prompt;
+
+  static String? appwriteName;
+  static String? appwriteEmail;
+  static String? appwritePassword;
+
+  static String? accessToken;
+  static String? accessTokenSecret;
 
   static List<String>? thread;
 
+  static User? user;
+  static UserPreference? userPreference;
+
+  static String? tweet;
+
   static File? currentFile;
   static String? currentImageUrl;
-  static List<String>? currentToxicChemicalsList;
+
+  static bool? isHomePageLoaded = false;
+  static bool? isTweetDataLoaded = false;
 
   static Map<String, List<int>>? userOnboardedData = {
     OnboardingData.topics: [],
     OnboardingData.writingStyle: [],
     OnboardingData.conversationTone: []
   };
-
-  static bool isThroughHistory = false;
 }
 
 class SessionHelperEmpty {
@@ -40,5 +56,17 @@ class SessionHelperEmpty {
     SessionHelper.uid = null;
     SessionHelper.bearerToken = null;
     SessionHelper.profileImageUrl = null;
+    SessionHelper.prompt = null;
+    SessionHelper.thread = null;
+    SessionHelper.currentFile = null;
+    SessionHelper.currentImageUrl = null;
+    SessionHelper.userOnboardedData = {
+      OnboardingData.topics: [],
+      OnboardingData.writingStyle: [],
+      OnboardingData.conversationTone: []
+    };
+    SessionHelper.appwriteName = null;
+    SessionHelper.appwriteEmail = null;
+    SessionHelper.appwritePassword = null;
   }
 }

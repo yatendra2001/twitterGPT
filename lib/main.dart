@@ -8,26 +8,23 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_mentions/flutter_mentions.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 import 'package:twitter_gpt/config/route_generator.dart';
+import 'package:twitter_gpt/firebase_options.dart';
 import 'package:twitter_gpt/repositories/tweets/tweet_repo.dart';
-import 'package:twitter_gpt/repositories/user/user_repo.dart';
 import 'package:twitter_gpt/screens/splashscreen.dart';
 import 'package:twitter_gpt/utils/theme_constants.dart';
 
 // 🌎 Project imports:
 import 'blocs/app_init/app_init_bloc.dart';
-import 'firebase_options.dart';
 import 'repositories/authentication/auth_repo.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
-  // await Supabase.initialize(
-  //   url: dotenv.get('SUPABASE_PROJECT_URL'),
-  //   anonKey: dotenv.get('PUBLIC_ANON_KEY'),
-  // );
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -49,7 +46,6 @@ class MyApp extends StatelessWidget {
           RepositoryProvider<AuthRepository>(create: (_) => AuthRepository()),
           RepositoryProvider<AuthRepository>(create: (_) => AuthRepository()),
           RepositoryProvider<TweetRepo>(create: (_) => TweetRepo()),
-          RepositoryProvider<UserRepo>(create: (_) => UserRepo()),
         ],
         child: MultiBlocProvider(
           providers: [
@@ -58,21 +54,24 @@ class MyApp extends StatelessWidget {
                   AppInitBloc(authRepository: context.read<AuthRepository>()),
             ),
           ],
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'twitterGPT',
-            theme: ThemeData.dark().copyWith(
-              brightness: Brightness.dark,
-              primaryColor: AppColor.kGreenColor,
-              scaffoldBackgroundColor: AppColor.kColorBlack,
-              appBarTheme: const AppBarTheme(
-                backgroundColor: AppColor.kColorBlack,
+          child: Portal(
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'twitterGPT',
+              theme: ThemeData.dark().copyWith(
+                brightness: Brightness.dark,
+                primaryColor: AppColor.kGreenColor,
+                scaffoldBackgroundColor: AppColor.kColorBlack,
+                appBarTheme: const AppBarTheme(
+                  backgroundColor: AppColor.kColorBlack,
+                ),
+                textTheme:
+                    GoogleFonts.interTextTheme(Theme.of(context).textTheme)
+                        .apply(bodyColor: AppColor.kColorWhite),
               ),
-              textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme)
-                  .apply(bodyColor: AppColor.kColorWhite),
+              onGenerateRoute: RouteGenerator.generateRoute,
+              initialRoute: SplashScreen.routeName,
             ),
-            onGenerateRoute: RouteGenerator.generateRoute,
-            initialRoute: SplashScreen.routeName,
           ),
         ),
       );
