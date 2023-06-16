@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart' as appwrite_models;
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:twitter_gpt/models/tweet_model.dart';
 import 'package:twitter_gpt/models/user_model.dart';
 import 'package:twitter_gpt/models/user_preference.dart';
@@ -26,7 +27,7 @@ class AppwriteRepo {
   AppwriteRepo() {
     client = Client()
       ..setEndpoint("https://cloud.appwrite.io/v1")
-      ..setProject("6488bcfb8d782cc9dacd")
+      ..setProject(dotenv.get("APPWRITE_PROJECT_ID"))
       ..setSelfSigned(status: true);
     account = Account(client);
     database = Databases(client);
