@@ -16,7 +16,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/yatendra2001/twitter_gpt">
-    <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/49fgso0w25bdidk930ay.png"  alt="Logo" width="200" height="200" >
+    <img src="https://firebasestorage.googleapis.com/v0/b/twittergpt-7d0dc.appspot.com/o/assets%2FtwitterGPT_logo_green.png?alt=media&token=488013b0-dfeb-4411-96c1-fdf3229718b9"  alt="Logo" width="200" height="200" >
   </a>
   
 </div>
@@ -25,7 +25,7 @@
 
 TwitterGPT aims to bring the power of AI to social media, starting with Twitter. It allows users to automate their Twitter content generation, personalizing tweets and threads based on their unique style and preferred topics.
 
-![App Screenshot](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/hoaaauh44j4sfo5leee9.png)
+![App Screenshot](https://firebasestorage.googleapis.com/v0/b/twittergpt-7d0dc.appspot.com/o/assets%2Ffinal%20new%20new%20new%20(2).png?alt=media&token=6acc5cbb-fbf3-4b8d-a293-e53dea0a525d)
 
 
 ## Introduction
@@ -50,7 +50,6 @@ ACCESS_TOKEN_SECRET=Your_Twitter_Access_Token_Secret
 
 API_KEY=Your_Twitter_API_Key
 API_SECRET_KEY=Your_Twitter_API_Secret_Key
-BEARER_TOKEN=Your_Twitter_Bearer_Token
 
 CALLBACK_URL=Your_Callback_URL
 
@@ -58,20 +57,10 @@ CLIENT_ID=Your_Client_ID
 CLIENT_SECRET=Your_Client_Secret
 
 # Supabase URL(s)
-SUPABASE_CALLBACK_URL=Your_Supabase_Callback_URL
-PUBLIC_ANON_KEY=Your_Public_Anon_Key
-SUPABASE_PROJECT_URL=Your_Supabase_Project_URL
+APPWRITE_PROJECT_ID=YOUR_PROJECT_ID
 
 # Open AI
 OPEN_AI_API_KEY=Your_OpenAI_API_Key
-
-# Firebase Credentials
-# Firebase Web
-API_KEY_WEB=Your_Firebase_Web_API_Key
-APP_ID_WEB=Your_Firebase_Web_App_ID
-...
-
-(Complete with your other Firebase credentials for Android, iOS, and macOS)
 ```
 
 3. Check for Flutter setup and connected devices:
