@@ -30,7 +30,7 @@ TwitterGPT aims to bring the power of AI to social media, starting with Twitter.
 
 ## Introduction
 
-TwitterGPT is a web app that utilizes OpenAI's GPT-4 to simplify the Twitter content creation process, making it accessible to a wider audience. The AI-generated content is unique and reflects the personal preferences and styles of the user, resulting in personalized Twitter threads.
+TwitterGPT is a mobile app that utilizes OpenAI's GPT-4 to simplify the Twitter content creation process, making it accessible to a wider audience. The AI-generated content is unique and reflects the personal preferences and styles of the user, resulting in personalized Twitter threads.
 
 
 ## Usage
