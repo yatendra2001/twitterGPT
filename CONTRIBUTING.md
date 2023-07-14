@@ -10,16 +10,16 @@ By participating in this project, you're expected to uphold our [Code of Conduct
 
 Set up your local project in your computer
 
-\`\`\`bash
+```bash
 git clone https://github.com/yatendra2001/TwitterGPT.git
-cd REPO
-\`\`\`
+cd TwitterGPT
+```
 
 Create a new branch
 
-\`\`\`bash
-git checkout -b name_for_new_branch
-\`\`\`
+```bash
+git checkout -b feature/<name>
+```
 
 ## Contributions
 
