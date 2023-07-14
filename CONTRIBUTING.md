@@ -52,5 +52,3 @@ You can chat with the community [here](https://discord.gg/7udyaThamZ). Feel free
 Remember, the best way to gain contributions is by being respectful and welcoming to new contributors.
 
 We're so excited to see the contributions you'll make! 
-
-#OpenSource #TwitterGPT #Flutter #Appwrite #OpenAI
