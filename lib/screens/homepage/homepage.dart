@@ -144,7 +144,6 @@ class _HomePageState extends State<HomePage>
                       toolbarHeight: 0.h,
                       bottom: TabBar(
                         isScrollable: true,
-                        tabAlignment: TabAlignment.start,
                         unselectedLabelStyle: Theme.of(context)
                             .textTheme
                             .labelLarge!
