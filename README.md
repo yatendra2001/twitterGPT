@@ -83,6 +83,7 @@ flutter run
 ## Contributing
 
 Contribution to the project can be made if you have some improvements for the project or if you find some bugs.
+
 You can contribute to the project by reporting issues, forking it, modifying the code and making a pull request to the repository.
 
 Please make sure you specify the commit type when opening pull requests:
