@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:twitter_gpt/models/user_model.dart';
 import 'package:twitter_gpt/models/user_preference.dart';
 import 'package:twitter_gpt/utils/onboarding_data.dart';

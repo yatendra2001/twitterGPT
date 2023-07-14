@@ -90,11 +90,13 @@ class _WriteTweetScreenState extends State<WriteTweetScreen> {
                                 ScaffoldMessenger(
                                     child: Text(
                                   "Tweeted Successfully",
+                                  // ignore: use_build_context_synchronously
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium!
                                       .copyWith(color: AppColor.kColorWhite),
                                 ));
+                                // ignore: use_build_context_synchronously
                                 Navigator.of(context).pop();
                               } catch (error) {
                                 debugPrint(error.toString());
@@ -159,7 +161,7 @@ class _WriteTweetScreenState extends State<WriteTweetScreen> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: IconButton(
-                    icon: Icon(Icons.photo),
+                    icon: const Icon(Icons.photo),
                     color: AppColor.kGreenColor,
                     onPressed: pickImage,
                   ),
