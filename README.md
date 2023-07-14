@@ -102,7 +102,7 @@ docs: Everything related to documentation
 refactor: Regular code refactoring and maintenance
 ```
 
-To know more extensively about how to contribute to this project, read our [Contribution Guide].(https://github.com/yatendra2001/TwitterGPT/blob/master/CONTRIBUTING.md)
+To know more extensively about how to contribute to this project, read our [Contribution Guide](https://github.com/yatendra2001/TwitterGPT/blob/master/CONTRIBUTING.md).
 ## License
 
 The project is released under the [MIT License](http://www.opensource.org/licenses/mit-license.php). The license can be found [here](LICENSE).
