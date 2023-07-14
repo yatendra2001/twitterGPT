@@ -2,64 +2,81 @@
 // 🎯 Dart imports:
 import 'dart:convert';
 
-// 🐦 Flutter imports:
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+
+// 🐦 Flutter imports:
 
 class User extends Equatable {
   final String? uid;
-  final int? twitterId;
+  final String? accessToken;
+  final String? accessTokenSecret;
   final String? name;
-  final String? screenName;
-  final String? thumbnailImage;
+  final String? username;
+  final String? profileImageUrl;
+  final String? email;
   const User({
     this.uid,
-    this.twitterId,
+    this.accessToken,
+    this.accessTokenSecret,
     this.name,
-    this.screenName,
-    this.thumbnailImage,
+    this.username,
+    this.profileImageUrl,
+    this.email,
   });
 
   User copyWith({
     String? uid,
-    int? twitterId,
+    String? accessToken,
+    String? accessTokenSecret,
     String? name,
-    String? screenName,
-    String? thumbnailImage,
+    String? username,
+    String? profileImageUrl,
+    String? email,
   }) {
     return User(
       uid: uid ?? this.uid,
-      twitterId: twitterId ?? this.twitterId,
+      accessToken: accessToken ?? this.accessToken,
+      accessTokenSecret: accessTokenSecret ?? this.accessTokenSecret,
       name: name ?? this.name,
-      screenName: screenName ?? this.screenName,
-      thumbnailImage: thumbnailImage ?? this.thumbnailImage,
+      username: username ?? this.username,
+      profileImageUrl: profileImageUrl ?? this.profileImageUrl,
+      email: email ?? this.email,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'twitterId': twitterId,
+      'uid': uid,
+      'accessToken': accessToken,
+      'accessTokenSecret': accessTokenSecret,
       'name': name,
-      'screenName': screenName,
-      'thumbnailImage': thumbnailImage,
+      'username': username,
+      'profileImageUrl': profileImageUrl,
+      'email': email,
     };
   }
 
-  factory User.fromMap(DocumentSnapshot doc) {
-    final map = doc.data() as Map<String, dynamic>;
+  factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      uid: doc.id,
-      twitterId: map['twitterId'] != null ? map['twitterId'] as int : null,
-      name: map['name'] != null ? map['name'] as String : null,
-      screenName:
-          map['screenName'] != null ? map['screenName'] as String : null,
-      thumbnailImage: map['thumbnailImage'] != null
-          ? map['thumbnailImage'] as String
+      uid: map['uid'] != null ? map['uid'] as String : null,
+      accessToken:
+          map['accessToken'] != null ? map['accessToken'] as String : null,
+      accessTokenSecret: map['accessTokenSecret'] != null
+          ? map['accessTokenSecret'] as String
           : null,
+      name: map['name'] != null ? map['name'] as String : null,
+      username: map['username'] != null ? map['username'] as String : null,
+      profileImageUrl: map['profileImageUrl'] != null
+          ? map['profileImageUrl'] as String
+          : null,
+      email: map['email'] != null ? map['email'] as String : null,
     );
   }
 
   String toJson() => json.encode(toMap());
+
+  factory User.fromJson(String source) =>
+      User.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   bool get stringify => true;
@@ -68,10 +85,12 @@ class User extends Equatable {
   List<Object> get props {
     return [
       uid!,
-      twitterId!,
+      accessToken!,
+      accessTokenSecret!,
       name!,
-      screenName!,
-      thumbnailImage!,
+      username!,
+      profileImageUrl!,
+      email!,
     ];
   }
 }

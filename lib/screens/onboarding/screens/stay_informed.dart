@@ -5,10 +5,9 @@ import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
 
 // 🌎 Project imports:
-import 'package:twitter_gpt/common_widgets/custom_button.dart';
 import 'package:twitter_gpt/screens/onboarding/screens/link_twitter_screen.dart';
 import '../../../utils/asset_constants.dart';
-import '../widgets/dot_indicator.dart';
+import '../../widgets/dot_indicator.dart';
 
 class StayInformedScreen extends StatefulWidget {
   final PageController pageController;
@@ -102,21 +101,21 @@ class _StayInformedScreenState extends State<StayInformedScreen> {
                         SizedBox(
                           height: 4.h,
                         ),
-                        CustomButton(
-                          text: "Get Started",
-                          onPressed: () {
-                            showModalBottomSheet(
-                              isScrollControlled: true,
-                              backgroundColor: Colors.transparent,
-                              context: context,
-                              builder: (context) {
-                                return LinkTwitterScreen(
-                                  afterConnect: () {},
-                                );
-                              },
-                            );
-                          },
-                        ),
+                        // CustomButton(
+                        //   text: "Get Started",
+                        //   onPressed: () {
+                        //     showModalBottomSheet(
+                        //       isScrollControlled: true,
+                        //       backgroundColor: Colors.transparent,
+                        //       context: context,
+                        //       builder: (context) {
+                        //         return LinkTwitterScreen(
+                        //           afterConnect: () {},
+                        //         );
+                        //       },
+                        //     );
+                        //   },
+                        // ),
                       ],
                     ),
                   ),

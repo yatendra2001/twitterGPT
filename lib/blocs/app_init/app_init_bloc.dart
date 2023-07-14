@@ -7,7 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:twitter_gpt/repositories/tweets/tweet_repo.dart';
 import 'package:twitter_gpt/utils/session_helper.dart';
 import '../../repositories/authentication/auth_repo.dart';
 
@@ -49,7 +48,6 @@ class AppInitBloc extends Bloc<AppInitEvent, AppInitState> {
       SessionHelper.uid = event.user!.uid;
       SessionHelper.bearerToken = await event.user!.getIdToken();
       // log('bearer token: ${SessionHelper.bearerToken}');
-      SessionHelper.username = await TweetRepo().getUsername();
       yield AppInitState.authenticated(user: event.user!);
     } else {
       yield AppInitState.unauthenticated();

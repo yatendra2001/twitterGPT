@@ -53,6 +53,13 @@ dependencies:
   flutter_bloc: ^7.0.0
   http: ^0.13.6
   flutter_spinkit: ^5.2.0
+  url_launcher: ^6.1.11
+  cached_network_image: ^3.2.3
+  appwrite: ^9.0.0
+  page_transition: ^2.0.9
+  shared_preferences: ^2.1.2
+  flutter_mentions: ^2.0.1
+  image_picker: ^0.8.9
 
 dev_dependencies:
   flutter_test:
