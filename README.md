@@ -103,6 +103,13 @@ refactor: Regular code refactoring and maintenance
 ```
 
 To know more extensively about how to contribute to this project, read our [Contribution Guide](https://github.com/yatendra2001/TwitterGPT/blob/master/CONTRIBUTING.md).
+
+## Community
+
+You can chat with the community [here](https://discord.gg/7udyaThamZ). Feel free to ask questions and share your ideas about the project.
+
+Remember, the best way to gain contributions is by being respectful and welcoming to new contributors.
+
 ## License
 
 The project is released under the [MIT License](http://www.opensource.org/licenses/mit-license.php). The license can be found [here](LICENSE).
